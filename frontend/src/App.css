@@ -1,0 +1,103 @@
+/* 
+  ================
+  COMPONENT STYLES
+  ================
+*/
+
+/* MainDisplay */
+
+#main-content {
+  width: 1000px;
+  margin: auto;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column; /* Makes items stack vertically */
+  gap: 15px; 
+}
+
+#main-partners-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 25px;
+}
+
+h1.title {
+  text-align: center;
+  font-size: 24pt;
+
+  padding-bottom: 15px;
+}
+
+.center-item {
+  align-self: center; /* Center the topmost item */
+}
+
+h1.subtitle {
+  font-size: 15pt; 
+  margin: 0
+}
+
+.active-status {
+  font-size: 10pt;
+  font-weight: bold;
+  color: green;
+  margin: 0
+}
+
+/* PartnerTile */
+
+.partner-tile {
+  width: 450px;
+  height: 400px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  border: 1px solid #3d3d3d;
+  border-radius: 12px;
+
+  padding: 25px;
+  gap: 15px
+}
+
+.partner-thumbnail {
+  max-width: 330px;
+  max-height: 150px;
+}
+
+.partner-info {
+  font-size: 0.9em;
+} 
+
+#button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh; /* Full viewport height */
+}
+
+button {
+  background-color: green;
+  color: white; /* This ensures the text is readable */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: white; /* Remove the default border */
+  border-radius: 5px; /* Optional: adds rounded corners */
+  cursor: pointer
+}
+
+del-button {
+  background-color: red;
+  color: white; /* This ensures the text is readable */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: white; /* Remove the default border */
+  border-radius: 5px; /* Optional: adds rounded corners */
+  cursor: pointer
+}
