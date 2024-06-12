@@ -84,6 +84,24 @@ app.post('/partners', (req, res) => {
   res.status(201).json({ message: 'Partner added successfully', partners });
 });
 
+// Route to handle updating partner information
+app.put('/partner/:id', (req, res) => {
+  const { id } = req.params;
+  const { thumbnailUrl, name, description, activeYN } = req.body;
+
+  if (partners[id]) {
+    partners[id] = {
+      thumbnailUrl,
+      name,
+      description,
+      activeYN
+    };
+    res.status(200).send({ success: true, message: 'Partner updated successfully', partner: partners[id] });
+  } else {
+    res.status(404).send({ success: false, message: 'Partner not found' });
+  }
+});
+
 // Add a delete endpoint
 app.delete('/partner/:id', (req, res) => {
   const { id } = req.params;
