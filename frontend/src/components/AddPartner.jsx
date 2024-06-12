@@ -58,7 +58,7 @@ function AddPartner({onAddPartner}) {
           name: '',
           description: '',
           logo: '',
-          active: true
+          active: false
         });
       } else {
         console.error('Failed to add partner');
