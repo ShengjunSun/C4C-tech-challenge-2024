@@ -40,6 +40,12 @@ function Dashboard() {
     fetchPartners(); // Fetch partners again after adding a new partner
   };
 
+  const handleSave = (partnerKey, updatedData) => {
+    setPartners((prevPartners) => ({
+      ...prevPartners,
+      [partnerKey]: updatedData,
+    }));
+  };
 
   // Function to delete a partner
   const deletePartner = (partnerKey) => {
@@ -72,6 +78,7 @@ function Dashboard() {
             partnerData={partners[key]} 
             partnerKey={key}
             onDelete={deletePartner}
+            onSave={handleSave}
            />
         ))}
       </div>
