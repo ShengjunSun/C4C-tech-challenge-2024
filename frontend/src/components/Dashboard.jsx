@@ -126,8 +126,7 @@ function Dashboard() {
             key={key} 
             partnerData={partners[key]} 
             partnerKey={key}
-            onDelete={handleUpdatePartner}
-            onSave={handleSave}
+            onUpdate={handleUpdatePartner}
             isAdmin={isAdmin} 
           />
         ))}

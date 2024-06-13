@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
+function PartnerTile({ partnerData, partnerKey, onUpdate, isAdmin }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...partnerData });
 
@@ -21,7 +21,7 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        onSave(partnerKey, formData);
+        onUpdate()
         setIsEditing(false);
       } else {
         console.error('Failed to save changes');
@@ -37,7 +37,7 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        onDelete()
+        onUpdate()
       } else {
         console.error(data.message);
       }
@@ -45,10 +45,6 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
     .catch(error => console.error('Error deleting partner:', error));
   }
 
-
-
- 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
