@@ -31,6 +31,13 @@
   flex-wrap: wrap;
 }
 
+#add-partner-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 h1.title {
   text-align: center;
   font-size: 24pt;
