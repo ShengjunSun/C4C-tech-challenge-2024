@@ -1,0 +1,14 @@
+{
+  "dog_project_project": {
+    "thumbnailUrl": "https://picsum.photos/id/237/200/300",
+    "name": "Dog Project - Version 2",
+    "description": "A project about dogs., second version.  ",
+    "activeYN": true
+  },
+  "reading_project_project": {
+    "thumbnailUrl": "https://fastly.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4",
+    "name": "Reading Project",
+    "description": "A project about reading books. ",
+    "activeYN": false
+  }
+}
