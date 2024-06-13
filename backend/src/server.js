@@ -29,15 +29,6 @@ const savePartners = (data) => {
 
 const partners = loadPartners();
 
-/*
-partners["dog_project"] = {
-  "thumbnailUrl": "https://picsum.photos/id/237/200/300",
-  "name": "Dog Project",
-  "description": "A project about dogs.",
-  "activeYN": true
-};
-*/
-
 /* 
   APPLICATION MIDDLEWARE
   This section contains some server configuration.
@@ -106,7 +97,7 @@ app.put('/partner/:id', (req, res) => {
   }
 });
 
-// Add a delete endpoint
+// Route to delete a partner. 
 app.delete('/partner/:id', (req, res) => {
   const { id } = req.params;
   if (partners[id]) {
