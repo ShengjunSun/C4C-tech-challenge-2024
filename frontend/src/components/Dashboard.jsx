@@ -11,6 +11,9 @@ function Dashboard() {
   const [partners, setPartners] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const correctAdminPassword = 'password';
 
   // Load all partners on initial page load
   useEffect(() => {
@@ -73,6 +76,19 @@ function Dashboard() {
     setStatusFilter(e.target.value);
   };
 
+  const handlePasswordChange = (e) => {
+    setAdminPassword(e.target.value);
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (adminPassword === correctAdminPassword) {
+      setIsAdmin(true);
+    } else {
+      alert('Incorrect password');
+    }
+  };
+
   // Filter partners based on the search query and active status
   const filteredPartners = Object.keys(partners).filter((key) => {
     const partner = partners[key];
@@ -105,7 +121,24 @@ function Dashboard() {
             <option value="inactive">Inactive</option>
           </select>
       </div>
-      <AddPartner onAddPartner={handleAddPartner}/>
+      <div id="add-partner-grid">
+        {isAdmin ? (
+          <AddPartner onAddPartner={handleAddPartner}/>
+        ) : (
+          <form onSubmit={handlePasswordSubmit}>
+            <input
+              type="password"
+              placeholder="Enter admin password"
+              value={adminPassword}
+              onChange={handlePasswordChange}
+              style={{ padding: '10px', fontSize: '16px', height: '40px' }}
+            />
+            <button type="submit" style={{ padding: '10px', fontSize: '16px', height: '40px' }}>
+              Submit
+            </button>
+          </form>
+        )}
+      </div>
       <div id="main-partners-grid">
         {filteredPartners.map((key) => (
           <PartnerTile 
@@ -114,6 +147,7 @@ function Dashboard() {
             partnerKey={key}
             onDelete={deletePartner}
             onSave={handleSave}
+            isAdmin={isAdmin} 
           />
         ))}
       </div>
