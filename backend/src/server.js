@@ -1,45 +1,42 @@
 import express from 'express';
+import fs from 'fs';
 
 const app = express();
 const port = 4000;
 
+// Path to the JSON file where partners data will be saved
+const partnersFilePath = './partners.json';
 
-const partners = {}
+// Function to load partners from the JSON file
+const loadPartners = () => {
+  try {
+    const data = fs.readFileSync(partnersFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error loading partners data:', error);
+    return {};
+  }
+};
 
+// Function to save partners to the JSON file
+const savePartners = (data) => {
+  try {
+    fs.writeFileSync(partnersFilePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error('Error saving partners data:', error);
+  }
+};
+
+const partners = loadPartners();
+
+/*
 partners["dog_project"] = {
   "thumbnailUrl": "https://picsum.photos/id/237/200/300",
   "name": "Dog Project",
   "description": "A project about dogs.",
   "activeYN": true
 };
-
-// Some partner data
-const partners_sample = {
-  "dog_project": {
-    "thumbnailUrl": "https://picsum.photos/id/237/200/300",
-    "name": "Dog Project",
-    "description": "A project about dogs.",
-    "activeYN": true
-  },
-  "lighthouse_project": {
-    "thumbnailUrl":"https://fastly.picsum.photos/id/58/1280/853.jpg?hmac=YO3QnOm9TpyM5DqsJjoM4CHg8oIq4cMWLpd9ALoP908",
-    "name": "Lighthouse Project", 
-    "description": "A project about lighthouse.",
-    "activeYN": false
-  },
-  "wave_project": {
-    "thumbnailUrl": "https://fastly.picsum.photos/id/59/2464/1632.jpg?hmac=uTfe6jCzLvCzANvJgtpo-a0fKhO8BvjpwLNYX3lqx_Q", 
-    "name": "wave project", 
-    "description": "A project about waves.",
-    "activeYN": true
-  },
-  "city_project": {
-    "thumbnailUrl": "https://fastly.picsum.photos/id/57/2448/3264.jpg?hmac=ewraXYesC6HuSEAJsg3Q80bXd1GyJTxekI05Xt9YjfQ", 
-    "name": "city project", 
-    "description": "A project about cities.",
-    "activeYN": false
-  }
-}
+*/
 
 /* 
   APPLICATION MIDDLEWARE
@@ -64,7 +61,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   res.status(200).send(partners);
-})
+});
 
 // Route to handle adding a new partner
 app.post('/partners', (req, res) => {
@@ -78,8 +75,11 @@ app.post('/partners', (req, res) => {
     thumbnailUrl: logo,
     name,
     description,
-    activeYN: active
+    activeYN: active,
   };
+
+  // Save the updated partners data to the file
+  savePartners(partners);
 
   res.status(201).json({ message: 'Partner added successfully', partners });
 });
@@ -94,8 +94,12 @@ app.put('/partner/:id', (req, res) => {
       thumbnailUrl,
       name,
       description,
-      activeYN
+      activeYN,
     };
+
+    // Save the updated partners data to the file
+    savePartners(partners);
+
     res.status(200).send({ success: true, message: 'Partner updated successfully', partner: partners[id] });
   } else {
     res.status(404).send({ success: false, message: 'Partner not found' });
@@ -107,6 +111,10 @@ app.delete('/partner/:id', (req, res) => {
   const { id } = req.params;
   if (partners[id]) {
     delete partners[id];
+
+    // Save the updated partners data to the file
+    savePartners(partners);
+
     res.status(200).send({ success: true, message: 'Partner deleted successfully' });
   } else {
     res.status(404).send({ success: false, message: 'Partner not found' });
