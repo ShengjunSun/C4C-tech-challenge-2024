@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DelButton from './DelButton';
 
 function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +30,25 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
     .catch(error => console.error('Error:', error));
   };
 
+  const handleDeleteClick = () => {
+    fetch(`http://localhost:4000/partner/${partnerKey}`, {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        onDelete()
+      } else {
+        console.error(data.message);
+      }
+    })
+    .catch(error => console.error('Error deleting partner:', error));
+  }
+
+
+
+ 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -102,7 +120,7 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
           {isAdmin && (
           <div className="button-group" style={{ display: 'flex', gap: '10px'}}>
             <button onClick={handleEditClick}>Edit</button>
-            <DelButton onDelete={() => onDelete(partnerKey)} />
+            <del-button onClick={handleDeleteClick} classname="del-button">Delete</del-button>
           </div>
           )}
         </>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import PartnerTile from './PartnerTile';
-import AddButton from './AddButton';
 import AddPartner from './AddPartner';
 
 /*
@@ -39,7 +38,7 @@ function Dashboard() {
     }
   };
 
-  const handleAddPartner = () => {
+  const handleUpdatePartner = () => {
     fetchPartners(); // Fetch partners again after adding a new partner
   };
 
@@ -48,24 +47,6 @@ function Dashboard() {
       ...prevPartners,
       [partnerKey]: updatedData,
     }));
-  };
-
-  // Function to delete a partner
-  const deletePartner = (partnerKey) => {
-    fetch(`http://localhost:4000/partner/${partnerKey}`, {
-      method: 'DELETE',
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        const newPartners = { ...partners };
-        delete newPartners[partnerKey];
-        setPartners(newPartners);
-      } else {
-        console.error(data.message);
-      }
-    })
-    .catch((error) => console.error('Error deleting partner:', error));
   };
 
   const handleSearchChange = (e) => {
@@ -123,7 +104,7 @@ function Dashboard() {
       </div>
       <div id="add-partner-grid">
         {isAdmin ? (
-          <AddPartner onAddPartner={handleAddPartner}/>
+          <AddPartner onAddPartner={handleUpdatePartner}/>
         ) : (
           <form onSubmit={handlePasswordSubmit}>
             <input
@@ -145,7 +126,7 @@ function Dashboard() {
             key={key} 
             partnerData={partners[key]} 
             partnerKey={key}
-            onDelete={deletePartner}
+            onDelete={handleUpdatePartner}
             onSave={handleSave}
             isAdmin={isAdmin} 
           />
