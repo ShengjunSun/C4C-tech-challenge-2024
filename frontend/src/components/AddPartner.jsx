@@ -107,7 +107,7 @@ function AddPartner({onAddPartner}) {
             onChange={handleCheckboxChange}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">Add Partner</button>
       </form>
     </div>
   );
