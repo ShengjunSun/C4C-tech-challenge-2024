@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DelButton from './DelButton';
 
-function PartnerTile({ partnerData, partnerKey, onDelete, onSave }) {
+function PartnerTile({ partnerData, partnerKey, onDelete, onSave, isAdmin }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...partnerData });
 
@@ -98,10 +98,13 @@ function PartnerTile({ partnerData, partnerKey, onDelete, onSave }) {
           <div className="partner-info">
             {description}
           </div>
-          <div className="button-group" style={{ display: 'flex', gap: '10px' }}>
+
+          {isAdmin && (
+          <div className="button-group" style={{ display: 'flex', gap: '10px'}}>
             <button onClick={handleEditClick}>Edit</button>
             <DelButton onDelete={() => onDelete(partnerKey)} />
           </div>
+          )}
         </>
       )}
     </div>
